@@ -1,0 +1,7 @@
+aiohttp
+aiohttp-jinja2
+telethon==1.27.0
+cryptg
+pillow
+aiohttp_session[secure]
+python-dotenv
