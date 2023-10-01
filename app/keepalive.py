@@ -4,6 +4,7 @@ import aiohttp
 import traceback
 from .config import APP_URL
 async def ping_server():
+    sleep_time=int(5*60)
     while True:
         await asyncio.sleep(sleep_time)
         try:
