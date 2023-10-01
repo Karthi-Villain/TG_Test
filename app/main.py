@@ -11,6 +11,7 @@ from aiohttp_session import session_middleware
 from aiohttp_session.cookie_storage import EncryptedCookieStorage
 
 from .telegram import Client
+from .keepalive import ping_server
 from .routes import setup_routes
 from .views import Views, middleware_factory
 from .config import (
@@ -73,7 +74,7 @@ class Indexer:
         loader = jinja2.FileSystemLoader(str(self.TEMPLATES_ROOT))
         aiohttp_jinja2.setup(server, loader=loader)
         print("------------------ Starting Keep Alive Service ------------------")
-        asyncio.create_task(util.ping_server())
+        asyncio.create_task(ping_server())
 
     async def cleanup(self, server: web.Application):
         await self.tg_client.disconnect()
