@@ -81,16 +81,16 @@ class Indexer:
     def run(self):
         web.run_app(self.server, host=host, port=port, loop=self.loop)
     async def ping_server():
-    sleep_time = 15
-    while True:
-        await asyncio.sleep(sleep_time)
-        try:
-            async with aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=10)
-            ) as session:
-                async with session.get(APP_URL) as resp:
-                    logging.info("Pinged server with response: {}".format(resp.status))
-        except TimeoutError:
-            logging.warning("Couldn't connect to the site URL..!")
-        except Exception:
-            traceback.print_exc()
+        sleep_time = 15
+        while True:
+            await asyncio.sleep(sleep_time)
+            try:
+                async with aiohttp.ClientSession(
+                    timeout=aiohttp.ClientTimeout(total=10)
+                ) as session:
+                    async with session.get(APP_URL) as resp:
+                        logging.info("Pinged server with response: {}".format(resp.status))
+            except TimeoutError:
+                logging.warning("Couldn't connect to the site URL..!")
+            except Exception:
+                traceback.print_exc()
