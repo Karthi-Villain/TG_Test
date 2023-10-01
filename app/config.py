@@ -42,6 +42,7 @@ except (KeyError, ValueError):
     sys.exit(1)
 
 host = os.environ.get("HOST", "0.0.0.0")
+APP_URL=os.environ.get("APP_URL")
 debug = bool(os.environ.get("DEBUG"))
 block_downloads = bool(os.environ.get("BLOCK_DOWNLOADS"))
 results_per_page = int(os.environ.get("RESULTS_PER_PAGE", "20"))
