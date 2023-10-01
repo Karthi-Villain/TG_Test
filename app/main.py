@@ -3,7 +3,7 @@ import pathlib
 import logging
 import aiohttp
 
-from .util import keepalive
+from .keepalive import ping_server
 import aiohttp_jinja2
 import jinja2
 from aiohttp import web
