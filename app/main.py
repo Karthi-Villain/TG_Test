@@ -62,7 +62,7 @@ class Indexer:
         self.server["is_authenticated"] = authenticated
         self.server["username"] = username
         self.server["password"] = password
-    async def ping_server():
+    async def ping_server(self):
         sleep_time = 15
         while True:
             await asyncio.sleep(sleep_time)
@@ -86,7 +86,7 @@ class Indexer:
         loader = jinja2.FileSystemLoader(str(self.TEMPLATES_ROOT))
         aiohttp_jinja2.setup(server, loader=loader)
         print("------------------ Starting Keep Alive Service ------------------")
-        asyncio.create_task(ping_server())
+        asyncio.create_task(self.ping_server())
 
     async def cleanup(self, server: web.Application):
         await self.tg_client.disconnect()
