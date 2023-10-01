@@ -2,8 +2,8 @@ import asyncio
 import pathlib
 import logging
 import aiohttp
-import traceback
 
+from .util import keepalive
 import aiohttp_jinja2
 import jinja2
 from aiohttp import web
@@ -62,20 +62,7 @@ class Indexer:
         self.server["is_authenticated"] = authenticated
         self.server["username"] = username
         self.server["password"] = password
-    async def ping_server(self):
-        sleep_time = 15
-        while True:
-            await asyncio.sleep(sleep_time)
-            try:
-                async with aiohttp.ClientSession(
-                    timeout=aiohttp.ClientTimeout(total=10)
-                ) as session:
-                    async with session.get(APP_URL) as resp:
-                        logging.info("Pinged server with response: {}".format(resp.status))
-            except TimeoutError:
-                logging.warning("Couldn't connect to the site URL..!")
-            except Exception:
-                traceback.print_exc()
+
 
     async def startup(self, server: web.Application):
         await self.tg_client.start()
@@ -86,7 +73,7 @@ class Indexer:
         loader = jinja2.FileSystemLoader(str(self.TEMPLATES_ROOT))
         aiohttp_jinja2.setup(server, loader=loader)
         print("------------------ Starting Keep Alive Service ------------------")
-        asyncio.create_task(self.ping_server())
+        asyncio.create_task(util.ping_server())
 
     async def cleanup(self, server: web.Application):
         await self.tg_client.disconnect()
